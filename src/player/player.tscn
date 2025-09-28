@@ -1,0 +1,87 @@
+[gd_scene load_steps=8 format=3 uid="uid://dje7oakrleffi"]
+
+[ext_resource type="Script" uid="uid://cb6y8dc78loq7" path="res://player/player.gd" id="1_oul6g"]
+[ext_resource type="Texture2D" uid="uid://mipda2b7i6rm" path="res://textures/player/idle.png" id="2_qjkh3"]
+[ext_resource type="Texture2D" uid="uid://y2rosgf6mldl" path="res://textures/player/jump.png" id="3_g6k8r"]
+[ext_resource type="Texture2D" uid="uid://owbdhmoko7ls" path="res://textures/player/run1.png" id="4_boad6"]
+[ext_resource type="Texture2D" uid="uid://bfgwr2pc18ar0" path="res://textures/player/run2.png" id="5_rgyib"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_boad6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qjkh3")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_g6k8r")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_boad6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_rgyib")
+}],
+"loop": true,
+"name": &"run",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_boad6"]
+size = Vector2(48, 72)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite", "coins_label") groups=["player"]]
+script = ExtResource("1_oul6g")
+speed = 400.0
+jump_velocity = -600.0
+animated_sprite = NodePath("AnimatedSprite2D")
+coins_label = NodePath("Hud/Control/MarginContainer/Coins")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_boad6")
+animation = &"idle"
+offset = Vector2(0, -30)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -36)
+shape = SubResource("RectangleShape2D_boad6")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Hud"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Hud/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="Coins" type="Label" parent="Hud/Control/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Coins"
+horizontal_alignment = 1

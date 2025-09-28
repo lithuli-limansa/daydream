@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://0h1b7dgsl5ki"]
+
+[ext_resource type="Script" uid="uid://ngiyq6orn4bc" path="res://coin/coin.gd" id="1_el688"]
+[ext_resource type="Texture2D" uid="uid://b0fum8wqltwjo" path="res://textures/coin1.png" id="2_ksovn"]
+[ext_resource type="Texture2D" uid="uid://brud5d3hsqh75" path="res://textures/coin2.png" id="3_gbvlv"]
+[ext_resource type="AudioStream" uid="uid://bxorsqfccpxfm" path="res://audio/Pickup1.wav" id="4_gbvlv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_el688"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y7rj8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ksovn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gbvlv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Coin" type="Area2D"]
+script = ExtResource("1_el688")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_el688")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_y7rj8")
+autoplay = "default"
+frame = 1
+frame_progress = 0.25966105
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_gbvlv")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

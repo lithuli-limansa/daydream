@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://32ijui5fashm"]
+
+[ext_resource type="Texture2D" uid="uid://bec5a81ht2v0b" path="res://textures/spritesheet-tiles-default.png" id="1_xvllk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r410q"]
+size = Vector2(64, 40)
+
+[node name="JumpThroughPlatform" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_r410q")
+one_way_collision = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xvllk")
+region_enabled = true
+region_rect = Rect2(448, 768, 64, 64)
